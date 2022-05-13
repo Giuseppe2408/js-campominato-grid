@@ -7,14 +7,21 @@ btn.addEventListener ('click',
 
     // se sceglie facile griglia fino a 100 da dividere per 10x10
     function easymode() {
-        if (inputUtente.value == 'facile') {
+        if (inputUtente == 'facile') {
             const node = document.createElement ('div');
             node.className = "square-1"
             return node;
         }
-        }
-    
+    }
 
+    const stampa = () => {
+        for (let index = 0; index < 100; index++) {
+            const divsquare = easymode();
+            grid.append(divsquare);
+        }
+    }
+    
+    stampa();
 
 
 
