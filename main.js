@@ -1,89 +1,84 @@
-// far scegliere al difficoltà all'utente
-let inputUtente = document.querySelector('input').value;
-let btn = document.querySelector('button');
-let grid = document.getElementById('grid');
+const gridEl = document.getElementById('grid')
+const select = document.getElementById('livello')
+const btn = document.querySelector('button');
 
-function easymode() {
-    if (inputUtente == 'facile') {
-        const node = document.createElement ('div');
-        node.className = "square-1"
-        return node;
-    }
+const creazioneelemento = (classDiv) => {
+    const node = document.createElement('div');
+    node.className = classDiv;
+    return node;
 }
 
-let stampa = () => {
-    for (let index = 0; index < 100; index++) {
-        const divsquare = easymode();
-        grid.append(divsquare);
-    }
-}
-// mid mode
-function midmode() {
-    if (inputUtente == 'medio') {
-        const node1 = document.createElement ('div');
-        node1.className = "square-2"
-        return node1;
-    }
-}
+btn.addEventListener ('click',
 
-let stampa1 = () => {
-    for (let index = 0; index < 81; index++) {
-        const divsquare = midmode();
-        grid.append(divsquare);
-    }
-}
+    () => {
+        let ncells;
+        let classcells
 
-// mid mode
-function hardmode() {
-    if (inputUtente == 'difficile') {
-        const node2 = document.createElement ('div');
-        node2.className = "square-3"
-        return node2;
-    }
-}
+        // svuotare griglia
+        gridEl.innerHTML = "";
 
-let stampa2 = () => {
-    for (let index = 0; index < 49; index++) {
-        const divsquare = hardmode();
-        grid.append(divsquare);
-    }
-}
-// usare addevent click
-if (inputUtente == 'facile') {
-    btn.addEventListener ('click',
-    function mode() {
-        easymode();
-        stampa();
-    }
-    )
-}
+        // valore select
+        const chooseLvl = parseInt(select.value);
+        console.log(chooseLvl);
 
-else if (inputUtente == 'medio') {
-    btn.addEventListener ('click',
-    function modeMid() {
-        midmode();
-        stampa1();
-    }
-    )
-}
+        switch (chooseLvl) {
+            case 0:
+            default:  
+            ncells = 100;
+            classcells = "square-1"
+            break;
+        
+            case 1:
+            ncells = 81;
+            classcells = "square-2"
+            break;
 
-else if (inputUtente == 'difficile') {
-    btn.addEventListener ('click',
-    function modehard() {
-        hardmode();
-        stampa2();
+            case 2:
+            ncells = 49;
+            classcells = "square-3"    
+            break;    
+        }
+
+
+
+        const mynewarrRandom = createrandnum (ncells, 1, ncells)
+        console.log(mynewarrRandom);
+        debugger;
+        for (let index = 0; index < mynewarrRandom.length; index++) {
+            const divEl = creazioneelemento(classcells);
+            let arrayitem = mynewarrRandom[index];
+            
+            divEl.addEventListener ('click',
+
+                () => {
+                    divEl.append(arrayitem);
+                    divEl.classList.add('clicked-blue');                    
+                }
+        
+            )
+            gridEl.append(divEl);
+        }
+        
+
     }
-    )
+
+
+)
+
+
+function getrandomnum(rangeMin, rangeMax) {
+    let result = Math.floor(Math.random() * 100 )
+    return result;
 }
 
-    // se sceglie facile griglia fino a 100 da dividere per 10x10
-  
-    
+function createrandnum(numItems, min, max) {
+    const arrInt = [];
+    while (arrInt.length < numItems) {
+        let randNumint = getrandomnum(min, max);
+        if (!arrInt.includes(randNumint)) {
+            arrInt.push(randNumint);
+        }
+    }
+    return arrInt;
+}
 
-
-
-
-
-
-// se sceglie 2 griglia fino a 81 9x9
-// se sceglie 3 griglia 49 7x7
